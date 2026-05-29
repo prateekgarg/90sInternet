@@ -1,0 +1,380 @@
+/* 90s Internet Simulator - Content Script Stylesheet */
+
+/* Global Reset for Injected Overlay Elements only to prevent host site styles from breaking them */
+#retro-dialup-overlay *, #classic-status-bar * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Tahoma", "MS Sans Serif", "Microsoft Sans Serif", system-ui, -apple-system, sans-serif !important;
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  color: #000000 !important;
+  -webkit-font-smoothing: none !important;
+  user-select: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  letter-spacing: normal !important;
+}
+
+/* Fullscreen Teal Dial-Up Desktop Overlay */
+#retro-dialup-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: #008080 !important; /* Desktop Teal */
+  z-index: 2147483647 !important; /* Absolute top */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  transition: opacity 0.5s ease-out !important;
+  visibility: visible !important; /* Overrides the inherited visibility: hidden from html */
+}
+
+/* Dial-Up Connection Modal Window */
+#retro-dialup-overlay .win95-dialog {
+  width: 340px !important;
+  background-color: #c0c0c0 !important;
+  border: 2px solid !important;
+  border-color: #ffffff #808080 #808080 #ffffff !important;
+  padding: 3px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+#retro-dialup-overlay .title-bar {
+  background: linear-gradient(90deg, #000080 0%, #1080d0 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 3px 4px !important;
+  height: 18px !important;
+}
+
+#retro-dialup-overlay .title-bar-text {
+  font-weight: bold !important;
+  color: #ffffff !important;
+  flex-grow: 1 !important;
+  font-size: 11px !important;
+}
+
+#retro-dialup-overlay .title-bar-controls button {
+  width: 16px !important;
+  height: 14px !important;
+  background-color: #c0c0c0 !important;
+  border: 1px solid !important;
+  border-color: #ffffff #808080 #808080 #ffffff !important;
+  position: relative !important;
+  cursor: pointer !important;
+}
+
+#retro-dialup-overlay .title-bar-controls button::after {
+  content: "✕" !important;
+  font-family: sans-serif !important;
+  font-size: 9px !important;
+  font-weight: bold !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #000 !important;
+}
+
+#retro-dialup-overlay .title-bar-controls button:active {
+  border-color: #808080 #ffffff #ffffff #808080 !important;
+  padding: 1px 0 0 1px !important;
+}
+
+#retro-dialup-overlay .dialog-body {
+  padding: 12px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+#retro-dialup-overlay .connection-graphics {
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  background-color: #ffffff !important;
+  border: 2px solid !important;
+  border-color: #808080 #ffffff #ffffff #808080 !important;
+  padding: 8px !important;
+  height: 64px !important;
+}
+
+/* Modems/Computer shaking animation */
+.pc-graphic, .modem-graphic {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.pc-graphic svg, .modem-graphic svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.flash-line {
+  stroke-dasharray: 4 !important;
+  stroke: #808080 !important;
+}
+
+#retro-dialup-overlay.connecting .pc-graphic {
+  animation: shake 0.2s infinite alternate !important;
+}
+
+#retro-dialup-overlay.connecting .modem-graphic {
+  animation: shake 0.25s infinite alternate !important;
+}
+
+#retro-dialup-overlay.connecting .flash-line {
+  animation: data-flash 0.3s infinite !important;
+}
+
+@keyframes shake {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-1px); }
+}
+
+@keyframes data-flash {
+  0% { stroke: #00ff00; stroke-dashoffset: 0; }
+  100% { stroke: #008000; stroke-dashoffset: 8; }
+}
+
+/* Info Text Panel */
+#retro-dialup-overlay .connection-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+#retro-dialup-overlay .info-label {
+  font-weight: bold !important;
+}
+
+#retro-dialup-overlay .info-detail {
+  color: #404040 !important;
+  font-family: monospace !important;
+}
+
+#retro-dialup-overlay .progress-bar-border {
+  border: 2px solid !important;
+  border-color: #808080 #ffffff #ffffff #808080 !important;
+  height: 14px !important;
+  background-color: #ffffff !important;
+  padding: 1px !important;
+}
+
+#retro-dialup-overlay .progress-bar-fill {
+  background-color: #000080 !important;
+  height: 100% !important;
+  width: 0% !important;
+}
+
+/* Footer Button Row */
+#retro-dialup-overlay .dialog-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: 4px !important;
+}
+
+#retro-dialup-overlay .win95-btn {
+  background-color: #c0c0c0 !important;
+  border: 2px solid !important;
+  border-color: #ffffff #808080 #808080 #ffffff !important;
+  box-shadow: inset 1px 1px 0px #dfdfdf !important;
+  padding: 4px 16px !important;
+  cursor: pointer !important;
+  outline: none !important;
+}
+
+#retro-dialup-overlay .win95-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080 !important;
+  padding: 5px 15px 3px 17px !important;
+}
+
+/* ==========================================================================
+   Classic retro Status Bar
+   ========================================================================== */
+#classic-status-bar {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 22px !important;
+  background-color: #c0c0c0 !important;
+  border-top: 2px solid !important;
+  border-top-color: #ffffff !important;
+  box-shadow: 0 -1px 0 #808080 !important;
+  z-index: 2147483640 !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 2px 4px !important;
+  gap: 4px !important;
+}
+
+.status-pane {
+  height: 16px !important;
+  border: 1px solid !important;
+  border-color: #808080 #ffffff #ffffff #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 4px !important;
+  background-color: #c0c0c0 !important;
+}
+
+.status-pane-left {
+  flex-grow: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.status-pane-middle {
+  width: 100px !important;
+  padding: 1px !important;
+  background-color: #ffffff !important;
+}
+
+.status-progress-fill {
+  background-color: #000080 !important;
+  height: 100% !important;
+  width: 0% !important;
+}
+
+.status-pane-right {
+  width: 24px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: #000000 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Tiny Netscape Icon in status bar */
+.status-netscape-logo {
+  position: relative !important;
+  width: 16px !important;
+  height: 16px !important;
+  overflow: hidden !important;
+}
+
+.status-netscape-logo .space-background {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: radial-gradient(circle at center, #001030 0%, #000000 100%) !important;
+}
+
+.status-netscape-logo .netscape-letter {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  color: #dfdfdf !important;
+  text-shadow: 1px 1px 1px #000 !important;
+}
+
+.status-netscape-logo.animating .space-background {
+  animation: star-sparkle 0.4s infinite alternate !important;
+}
+
+.status-netscape-logo.animating .netscape-letter {
+  animation: pulsate-letter-small 1.2s infinite alternate ease-in-out !important;
+}
+
+@keyframes pulsate-letter-small {
+  0% { transform: translate(-50%, -50%) scale(0.95); }
+  100% { transform: translate(-50%, -50%) scale(1.05); color: #ffffff; }
+}
+
+/* Offset standard body margin to fit status bar */
+html.retro-sim-active body {
+  margin-bottom: 22px !important;
+}
+
+/* ==========================================================================
+   Progressive DOM Reveal Styles
+   ========================================================================== */
+.retro-element {
+  /* Set initial opacity for reveal */
+  opacity: 0 !important;
+  transition: opacity 0.3s ease-in-out !important;
+}
+
+.retro-element.revealed {
+  opacity: 1 !important;
+}
+
+/* ==========================================================================
+   Retro Image Loading Placeholders
+   ========================================================================== */
+.retro-img-container {
+  display: inline-block !important;
+  position: relative !important;
+  overflow: hidden !important;
+  vertical-align: middle !important;
+}
+
+/* Hide original image partially while it is loading scanline style */
+.retro-img-loading {
+  visibility: visible !important;
+  /* CSS clip-path inset: top, right, bottom, left.
+     Throttler will decrease bottom inset from 100% to 0% to load from top to bottom */
+  clip-path: inset(0 0 100% 0) !important;
+  transition: clip-path 0.1s linear !important;
+}
+
+/* Retro broken image wrapper underneath the clipped image */
+.retro-img-placeholder {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #ffffff !important;
+  border: 1px solid #808080 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 4px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+}
+
+/* Tiny red X box */
+.retro-broken-icon {
+  width: 16px !important;
+  height: 16px !important;
+  border: 1px solid #808080 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-weight: bold !important;
+  color: #ff0000 !important;
+  font-family: monospace !important;
+  font-size: 11px !important;
+  background-color: #ffffff !important;
+  margin-bottom: 2px !important;
+}
+
+.retro-broken-alt {
+  font-size: 9px !important;
+  color: #808080 !important;
+  text-align: center !important;
+  font-family: monospace !important;
+  width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}

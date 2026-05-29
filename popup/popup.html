@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>90s Internet Simulator Setup</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="win95-window">
+    <!-- Title Bar -->
+    <div class="title-bar">
+      <div class="title-bar-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="12" height="10" fill="#c0c0c0" stroke="#000000" stroke-width="1"/>
+          <rect x="3" y="3" width="10" height="6" fill="#a0c0ff"/>
+          <rect x="2" y="12" width="12" height="2" fill="#808080"/>
+          <rect x="4" y="14" width="8" height="1" fill="#000000"/>
+          <rect x="5" y="11" width="6" height="1" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div class="title-bar-text">90s Internet Simulator Settings</div>
+      <div class="title-bar-controls">
+        <button id="btn-minimize" aria-label="Minimize"></button>
+        <button id="btn-maximize" aria-label="Maximize"></button>
+        <button id="btn-close" aria-label="Close"></button>
+      </div>
+    </div>
+
+    <!-- Window Body -->
+    <div class="window-body">
+      <!-- Global Simulator Status -->
+      <div class="field-row global-switch-row">
+        <input type="checkbox" id="global-enabled" checked>
+        <label for="global-enabled"><strong>Enable 90s Internet Simulation (Global)</strong></label>
+      </div>
+
+      <!-- Custom Windows 95 Tab Control -->
+      <div class="tabs-container">
+        <menu class="win95-tabs" role="tablist">
+          <li id="tab-connection" class="active" role="tab" aria-selected="true" tabindex="0">Connection</li>
+          <li id="tab-websites" role="tab" aria-selected="false" tabindex="-1">Website List</li>
+          <li id="tab-nostalgia" role="tab" aria-selected="false" tabindex="-1">Nostalgia & Stats</li>
+        </menu>
+
+        <!-- Tab Contents Box -->
+        <div class="tab-content-box">
+          <!-- Connection Settings Tab -->
+          <div id="panel-connection" class="tab-panel active" role="tabpanel">
+            <fieldset class="win95-fieldset">
+              <legend>Simulated Connection Speed</legend>
+              <div class="field-row">
+                <input type="radio" id="speed-14" name="modem-speed" value="14.4k">
+                <label for="speed-14">14.4 Kbps Modem (Snail Mode - 1.8 KB/s)</label>
+              </div>
+              <div class="field-row">
+                <input type="radio" id="speed-28" name="modem-speed" value="28.8k">
+                <label for="speed-28">28.8 Kbps Modem (Vintage '95 - 3.6 KB/s)</label>
+              </div>
+              <div class="field-row">
+                <input type="radio" id="speed-56" name="modem-speed" value="56k" checked>
+                <label for="speed-56">56.6 Kbps Modem (Quintessential Dial-up - 7.0 KB/s)</label>
+              </div>
+              <div class="field-row">
+                <input type="radio" id="speed-isdn" name="modem-speed" value="isdn">
+                <label for="speed-isdn">128 Kbps ISDN (Luxury Late 90s - 16.0 KB/s)</label>
+              </div>
+              <div class="field-row">
+                <input type="radio" id="speed-dsl" name="modem-speed" value="dsl">
+                <label for="speed-dsl">512 Kbps DSL / Early Broadband (64.0 KB/s)</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="win95-fieldset" style="margin-top: 12px;">
+              <legend>Connection Options</legend>
+              <div class="field-row">
+                <input type="checkbox" id="sound-enabled" checked>
+                <label for="sound-enabled">Play classic dial-up handshake sound on load</label>
+              </div>
+              <div class="field-row">
+                <input type="checkbox" id="statusbar-enabled" checked>
+                <label for="statusbar-enabled">Show retro browser status bar at bottom of pages</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="win95-fieldset" style="margin-top: 12px;">
+              <legend>Dial-Up Connection Status</legend>
+              <div class="field-row" style="justify-content: space-between; align-items: center;">
+                <span>Status: <strong id="connection-status-text">Disconnected</strong></span>
+                <button id="disconnect-btn" class="win95-btn" style="padding: 2px 12px;" disabled>Disconnect</button>
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Website List Tab -->
+          <div id="panel-websites" class="tab-panel" role="tabpanel">
+            <p class="tab-instruction">Add domains to throttle. They will load via the dial-up connection above. (Uses automatic regex matching for all paths/subdomains).</p>
+            
+            <div class="add-site-row">
+              <input type="text" id="new-site-input" placeholder="e.g. wikipedia.org" aria-label="Add website domain">
+              <button id="add-site-btn">Add Site</button>
+            </div>
+
+            <div class="list-box-container">
+              <label for="site-list-select" style="display: block; margin-bottom: 2px;">Simulated Sites:</label>
+              <div class="win95-list-box" id="site-list-box">
+                <!-- Javascript populated site list items -->
+              </div>
+            </div>
+            
+            <div class="field-row list-actions" style="margin-top: 6px; justify-content: flex-end;">
+              <button id="remove-site-btn" class="win95-btn" disabled>Remove Selected</button>
+              <button id="reset-defaults-btn" class="win95-btn">Reset Defaults</button>
+            </div>
+          </div>
+
+          <!-- Nostalgia & Stats Tab -->
+          <div id="panel-nostalgia" class="tab-panel" role="tabpanel">
+            <div class="nostalgia-grid">
+              <div class="stat-group">
+                <fieldset class="win95-fieldset">
+                  <legend>Nostalgia Counter</legend>
+                  <div class="stat-row">
+                    <span class="stat-label">Baud Rate:</span>
+                    <span id="stat-baud" class="stat-value">56,600 bps</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">Connections Made:</span>
+                    <span id="stat-connections" class="stat-value">0</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">Simulated Wait Time:</span>
+                    <span id="stat-time" class="stat-value">0s</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-label">Bytes Transferred:</span>
+                    <span id="stat-bytes" class="stat-value">0 KB</span>
+                  </div>
+                </fieldset>
+              </div>
+
+              <!-- Animated Logo Panel -->
+              <div class="logo-group">
+                <div class="retro-logo-container">
+                  <!-- Custom CSS-animated retro Netscape Navigator "N" styled badge -->
+                  <div class="netscape-logo" id="netscape-badge">
+                    <div class="space-background">
+                      <div class="starfield"></div>
+                      <div class="shooting-star"></div>
+                    </div>
+                    <div class="netscape-letter">N</div>
+                  </div>
+                  <div class="logo-caption">Click to test sound</div>
+                </div>
+                <button id="test-sound-btn" class="win95-btn" style="width: 100%; margin-top: 6px;">Test Dial-up</button>
+              </div>
+            </div>
+
+            <!-- Authentic 90s AOL quotes -->
+            <fieldset class="win95-fieldset" style="margin-top: 12px;">
+              <legend>Welcome to the Web</legend>
+              <div class="retro-quote-box" id="quote-box">
+                "Welcome! You've got mail!" — AOL 4.0
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialog Footer Buttons -->
+      <div class="footer-buttons">
+        <button id="btn-ok" class="win95-btn-ok">OK</button>
+        <button id="btn-cancel" class="win95-btn">Cancel</button>
+        <button id="btn-apply" class="win95-btn" disabled>Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Synthesis Script loaded inside popup for sound testing -->
+  <script src="../scripts/dialup-synth.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
